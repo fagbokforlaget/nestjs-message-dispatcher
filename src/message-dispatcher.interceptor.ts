@@ -41,7 +41,7 @@ export class MessageDispatcherInterceptor implements NestInterceptor {
           ids = [ids];
         }
         for (const id of ids) {
-          if (!data.id) continue;
+          if (!id) continue;
 
           this.options.messageData.action.verb = options.action;
           this.options.messageData.object.id = id;
