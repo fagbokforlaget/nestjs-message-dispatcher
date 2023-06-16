@@ -57,8 +57,6 @@ describe('Message Dispatcher', () => {
     beforeEach(async () => {
       jest.spyOn(transport, 'log');
     });
-    afterEach(async () => {
-      jest.clearAllMocks();
     });
     const id = '123-test';
     it('should create and send message', async () => {
