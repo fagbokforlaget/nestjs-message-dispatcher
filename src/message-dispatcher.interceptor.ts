@@ -31,13 +31,18 @@ export class MessageDispatcherInterceptor implements NestInterceptor {
 
     return next.handle().pipe(
       tap(async (data) => {
+        if (!data) return;
+
         const request = context.switchToHttp().getRequest();
+
         let ids = options.objectIdGetter(request, data);
 
         if (!Array.isArray(ids)) {
           ids = [ids];
         }
         for (const id of ids) {
+          if (!id) continue;
+
           this.options.messageData.action.verb = options.action;
           this.options.messageData.object.id = id;
 
