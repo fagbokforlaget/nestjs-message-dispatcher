@@ -46,6 +46,7 @@ export enum MsgObjectType {
   EportalProduct = 'urn:forlagshuset:object:eportal:product',
   PortfolioCourse = 'urn:forlagshuset:object:portfolio:course',
   PortfolioGroup = 'urn:forlagshuset:object:portfolio:group',
+  ErudioActivityData = 'urn:forlagshuset:object:erudio:activity',
 }
 
 export interface ObjectMsg {
