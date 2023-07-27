@@ -82,7 +82,7 @@ describe('Message Dispatcher', () => {
       });
     });
 
-    describe('for nonexisting object', () => {
+    describe('for nonexisting data object', () => {
       it('should not create nor send a message on nonexistant id', async () => {
         const res = await request(app.getHttpServer())
           .get(`/test/nodata`)
@@ -108,6 +108,28 @@ describe('Message Dispatcher', () => {
 
         expect(res.text).toEqual('');
         expect(transport.log).not.toHaveBeenCalled();
+      });
+
+      it('should send message when no data returned but object is taken from request', async () => {
+        const id = '123';
+        const res = await request(app.getHttpServer())
+          .get(`/test/noreturn/${id}`)
+          .expect(204);
+
+        expect(res.text).toEqual('');
+        expect(transport.log).toHaveBeenCalledWith(subject, {
+          action: { type: 'urn:forlagshuset:action:object', verb: 'deleted' },
+          object: {
+            id,
+            type: 'urn:forlagshuset:object:erudio:namespace',
+          },
+          payload: undefined,
+          service: {
+            id: serviceId,
+            type: 'urn:forlagshuset:service:app',
+          },
+          timestamp: expect.anything(),
+        });
       });
     });
   });
