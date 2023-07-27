@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, HttpCode, Param, Req } from '@nestjs/common';
 import {
   Action,
   MessageEventEmitter,
@@ -31,6 +31,19 @@ export class MessageDispatcherTestController {
   @Get('/undefined')
   async testNull(): Promise<undefined> {
     return;
+  }
+
+  @MessageEventEmitter({
+    objectIdGetter: (request) => request.obj,
+    action: Action.DELETED,
+  })
+  @Get('/noreturn/:id')
+  @HttpCode(204)
+  async testNoReturn(
+    @Param() params: { id: string },
+    @Req() req: any,
+  ): Promise<void> {
+    req.obj = params.id;
   }
 
   @MessageEventEmitter({

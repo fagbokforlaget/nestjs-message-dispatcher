@@ -31,8 +31,6 @@ export class MessageDispatcherInterceptor implements NestInterceptor {
 
     return next.handle().pipe(
       tap(async (data) => {
-        if (!data) return;
-
         const request = context.switchToHttp().getRequest();
 
         let ids = options.objectIdGetter(request, data);
