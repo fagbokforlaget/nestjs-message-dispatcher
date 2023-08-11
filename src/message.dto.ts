@@ -47,6 +47,7 @@ export enum MsgObjectType {
   PortfolioCourse = 'urn:forlagshuset:object:portfolio:course',
   PortfolioGroup = 'urn:forlagshuset:object:portfolio:group',
   ErudioActivityData = 'urn:forlagshuset:object:erudio:activity-data',
+  ErudioTagData = 'urn:forlagshuset:object:erudio:tag-store',
 }
 
 export interface ObjectMsg {
