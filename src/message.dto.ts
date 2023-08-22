@@ -39,6 +39,7 @@ export enum MsgObjectType {
   ErudioUserAsset = 'urn:forlagshuset:object:erudio:user-asset',
   ErudioLearningPath = 'urn:forlagshuset:object:erudio:learning-path',
   ErudioLearningPathElement = 'urn:forlagshuset:object:erudio:learning-path-element',
+  ErudioLocalization = 'urn:forlagshuset:object:erudio:localization',
   EportalGroup = 'urn:forlagshuset:object:eportal:group',
   DbokBook = 'urn:forlagshuset:object:dbok:book',
   DpmBook = 'urn:forlagshuset:object:dpm:book',
