@@ -1,6 +1,6 @@
 {
   "name": "@forlagshuset/nestjs-message-dispatcher",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Creates and send messages to nats",
   "main": "dist/index.js",
   "directories": {
