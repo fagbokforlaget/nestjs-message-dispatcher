@@ -1,16 +1,11 @@
 import { applyDecorators, SetMetadata, UseInterceptors } from '@nestjs/common';
 import { MessageDispatcherInterceptor } from './message-dispatcher.interceptor';
-
-export enum Action {
-  CREATED = 'created',
-  UPDATED = 'updated',
-  DELETED = 'deleted',
-}
+import { ActionVerbEnum } from '@fagbokforlaget/edtech-interfaces';
 
 export const DispatcherParamsMetadata = 'dispatcher-options';
 
 export interface DispatcherOptions {
-  action: Action;
+  action: ActionVerbEnum;
   objectIdGetter: (req: any, data: any) => string | string[];
 }
 

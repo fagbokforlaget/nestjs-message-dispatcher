@@ -3,14 +3,17 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AsyncLoggerProvider } from '../src/async-logger-provider.interface';
 import { MessageDispatcherInterceptor } from '../src/message-dispatcher.interceptor';
-import {
-  Message,
-  MsgActionType,
-  MsgObjectType,
-  MsgServiceType,
-} from '../src/message.dto';
 import { Options } from '../src/options.dto';
 import { MessageDispatcherTestController } from './mocks/message-dispatcher-test.controller';
+import { Message } from '../src/message.dto';
+import {
+  ActionEnum,
+  ActionVerbEnum,
+  MsgActionEnum,
+  MsgObjectEnum,
+  ObjectEnum,
+  ServiceEnum,
+} from '@fagbokforlaget/edtech-interfaces';
 
 describe('Message Dispatcher', () => {
   let app: INestApplication;
@@ -33,14 +36,14 @@ describe('Message Dispatcher', () => {
             subject,
             messageData: <Partial<Message>>{
               service: {
-                type: MsgServiceType.App,
+                type: ServiceEnum.App,
                 id: serviceId,
               },
               action: {
-                type: MsgActionType.Object,
+                type: MsgActionEnum.Object,
               },
               object: {
-                type: MsgObjectType.ErudioNamespace,
+                type: MsgObjectEnum.ErudioNamespace,
               },
             },
           },
@@ -67,15 +70,18 @@ describe('Message Dispatcher', () => {
         expect(res.text).toEqual(JSON.stringify({ id: id }));
         expect(transport.log).toHaveBeenCalledTimes(1);
         expect(transport.log).toHaveBeenCalledWith(subject, {
-          action: { type: 'urn:forlagshuset:action:object', verb: 'created' },
+          action: {
+            type: ActionEnum.Object,
+            verb: ActionVerbEnum.CREATED,
+          },
           object: {
             id,
-            type: 'urn:forlagshuset:object:erudio:namespace',
+            type: ObjectEnum.ErudioNamespace,
           },
           payload: { id },
           service: {
             id: serviceId,
-            type: 'urn:forlagshuset:service:app',
+            type: ServiceEnum.App,
           },
           timestamp: expect.anything(),
         });
@@ -118,15 +124,18 @@ describe('Message Dispatcher', () => {
 
         expect(res.text).toEqual('');
         expect(transport.log).toHaveBeenCalledWith(subject, {
-          action: { type: 'urn:forlagshuset:action:object', verb: 'deleted' },
+          action: {
+            type: ActionEnum.Object,
+            verb: ActionVerbEnum.DELETED,
+          },
           object: {
             id,
-            type: 'urn:forlagshuset:object:erudio:namespace',
+            type: ObjectEnum.ErudioNamespace,
           },
           payload: undefined,
           service: {
             id: serviceId,
-            type: 'urn:forlagshuset:service:app',
+            type: ServiceEnum.App,
           },
           timestamp: expect.anything(),
         });
