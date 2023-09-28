@@ -1,6 +1,6 @@
-import { Message } from './message.dto';
+import { MutationMessage } from '@fagbokforlaget/edtech-interfaces';
 
 export class Options {
   subject: string;
-  messageData: Message;
+  messageData: MutationMessage<Record<string, unknown>>;
 }

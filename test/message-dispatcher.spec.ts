@@ -5,7 +5,6 @@ import { AsyncLoggerProvider } from '../src/async-logger-provider.interface';
 import { MessageDispatcherInterceptor } from '../src/message-dispatcher.interceptor';
 import { Options } from '../src/options.dto';
 import { MessageDispatcherTestController } from './mocks/message-dispatcher-test.controller';
-import { Message } from '../src/message.dto';
 import {
   ActionEnum,
   ActionVerbEnum,
@@ -13,6 +12,7 @@ import {
   MsgObjectEnum,
   ObjectEnum,
   ServiceEnum,
+  MutationMessage,
 } from '@fagbokforlaget/edtech-interfaces';
 
 describe('Message Dispatcher', () => {
@@ -34,7 +34,7 @@ describe('Message Dispatcher', () => {
           provide: Options,
           useValue: <Options>{
             subject,
-            messageData: <Partial<Message>>{
+            messageData: <Partial<MutationMessage<Record<string, unknown>>>>{
               service: {
                 type: ServiceEnum.App,
                 id: serviceId,

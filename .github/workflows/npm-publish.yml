@@ -16,6 +16,8 @@ jobs:
         with:
           node-version: 18
       - run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.CI_GITHUB_PKG_TOKEN}}
       - run: npm test
 
   publish-npm:
@@ -28,6 +30,8 @@ jobs:
           node-version: 18
           registry-url: https://registry.npmjs.org/
       - run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.CI_GITHUB_PKG_TOKEN}}
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
