@@ -50,6 +50,7 @@ export enum MsgObjectType {
   PortfolioGroup = 'urn:forlagshuset:object:portfolio:group',
   PortfolioUser = 'urn:forlagshuset:object:portfolio:user',
   ErudioRoleAssignment = 'urn:forlagshuset:object:erudio:role-assignment',
+  ErudioObjectFusion = 'urn:forlagshuset:object:erudio:object-fusion'
 }
 
 export interface ObjectMsg {
