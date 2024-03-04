@@ -10,7 +10,7 @@ export enum Action {
 export const DispatcherParamsMetadata = 'dispatcher-options';
 
 export interface DispatcherOptions {
-  action: Action;
+  action: ((req: any, data: any) => Action) | string;
   objectIdGetter: (req: any, data: any) => string | string[];
 }
 

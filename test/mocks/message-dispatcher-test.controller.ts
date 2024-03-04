@@ -48,6 +48,19 @@ export class MessageDispatcherTestController {
 
   @MessageEventEmitter({
     objectIdGetter: (request) => request.params.id,
+    action: (request) => request.action as Action,
+  })
+  @Get('dynamic-action/:id/')
+  async testWithDynamicAction(
+    @Param() params: { id: string },
+    @Req() req,
+  ): Promise<{ id: string }> {
+    req.action = Action.UPDATED;
+    return { id: params.id };
+  }
+
+  @MessageEventEmitter({
+    objectIdGetter: (request) => request.params.id,
     action: Action.CREATED,
   })
   @Get(':id')

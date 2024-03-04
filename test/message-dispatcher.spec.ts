@@ -2,6 +2,7 @@ import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AsyncLoggerProvider } from '../src/async-logger-provider.interface';
+import { Action } from '../src/message-dispatcher.decorator';
 import { MessageDispatcherInterceptor } from '../src/message-dispatcher.interceptor';
 import {
   Message,
@@ -68,6 +69,31 @@ describe('Message Dispatcher', () => {
         expect(transport.log).toHaveBeenCalledTimes(1);
         expect(transport.log).toHaveBeenCalledWith(subject, {
           action: { type: 'urn:forlagshuset:action:object', verb: 'created' },
+          object: {
+            id,
+            type: 'urn:forlagshuset:object:erudio:namespace',
+          },
+          payload: { id },
+          service: {
+            id: serviceId,
+            type: 'urn:forlagshuset:service:app',
+          },
+          timestamp: expect.anything(),
+        });
+      });
+
+      it('should create and send message with dynamic action', async () => {
+        const res = await request(app.getHttpServer())
+          .get(`/test/dynamic-action/${id}`)
+          .expect(200);
+
+        expect(res.text).toEqual(JSON.stringify({ id: id }));
+        expect(transport.log).toHaveBeenCalledTimes(1);
+        expect(transport.log).toHaveBeenCalledWith(subject, {
+          action: {
+            type: 'urn:forlagshuset:action:object',
+            verb: Action.UPDATED,
+          },
           object: {
             id,
             type: 'urn:forlagshuset:object:erudio:namespace',

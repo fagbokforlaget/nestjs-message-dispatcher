@@ -31,7 +31,15 @@ export class MessageDispatcherInterceptor implements NestInterceptor {
 
     return next.handle().pipe(
       tap(async (data) => {
-        const request = context.switchToHttp().getRequest();
+        const request =
+          context.getType() === 'rpc'
+            ? context.switchToRpc()
+            : context.switchToHttp().getRequest();
+
+        this.options.messageData.action.verb =
+          typeof options.action === 'string'
+            ? options.action
+            : options.action(request, data);
 
         let ids = options.objectIdGetter(request, data);
 
@@ -41,7 +49,6 @@ export class MessageDispatcherInterceptor implements NestInterceptor {
         for (const id of ids) {
           if (!id) continue;
 
-          this.options.messageData.action.verb = options.action;
           this.options.messageData.object.id = id;
 
           const sendData = {
