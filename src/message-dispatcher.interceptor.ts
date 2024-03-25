@@ -60,7 +60,7 @@ export class MessageDispatcherInterceptor implements NestInterceptor {
             timestamp: timestamp(),
           };
 
-          if (this.options.debug) {
+          if (options.debug) {
             this.logger.debug(this.options.subject, JSON.stringify(sendData));
           }
 

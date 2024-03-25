@@ -12,6 +12,7 @@ export const DispatcherParamsMetadata = 'dispatcher-options';
 export interface DispatcherOptions {
   action: ((req: any, data: any) => Action) | string;
   objectIdGetter: (req: any, data: any) => string | string[];
+  debug?: boolean;
 }
 
 export const MessageEventEmitter = (params: DispatcherOptions) =>
