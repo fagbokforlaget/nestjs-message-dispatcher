@@ -3,6 +3,7 @@ import {
   ExecutionContext,
   Inject,
   Injectable,
+  Logger,
   NestInterceptor,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
@@ -17,6 +18,8 @@ import { Options } from './options.dto';
 
 @Injectable()
 export class MessageDispatcherInterceptor implements NestInterceptor {
+  logger = new Logger(MessageDispatcherInterceptor.name);
+
   constructor(
     @Inject(AsyncLoggerProvider) private client: AsyncLoggerProvider,
     private options: Options,
@@ -56,6 +59,10 @@ export class MessageDispatcherInterceptor implements NestInterceptor {
             payload: data,
             timestamp: timestamp(),
           };
+
+          if (this.options.debug) {
+            this.logger.debug(this.options.subject, JSON.stringify(sendData));
+          }
 
           await this.client.log(this.options.subject, sendData);
         }
