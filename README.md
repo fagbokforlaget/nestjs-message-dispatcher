@@ -1,3 +1,5 @@
+<h1> [DEPRECATED] </h1>
+
 # NestJS interceptor for message dispatching
 
 Library to facilitate message creation & sending
